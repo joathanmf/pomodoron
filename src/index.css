@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: coffee --default;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
