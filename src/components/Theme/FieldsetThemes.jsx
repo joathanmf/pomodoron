@@ -1,9 +1,10 @@
 import InputRadioTheme from "./InputRadioTheme.jsx";
+import Title from "../Title/Title.jsx";
 
 function FieldsetThemes({ currentTheme, setCurrentTheme }) {
   return (
     <div className="space-y-1">
-      <h4 className="font-medium">Temas</h4>
+      <Title>Altere o tema</Title>
       <fieldset className="fieldset flex flex-row justify-around">
         <InputRadioTheme
           value="lofi"
