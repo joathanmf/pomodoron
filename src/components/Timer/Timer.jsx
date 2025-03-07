@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
 import { useSettings } from "../../contexts/SettingsContext.jsx";
+import NotificationAudio from "../../assets/sounds/notification.mp3";
 
 function Timer() {
   const Step = {
@@ -35,6 +36,7 @@ function Timer() {
         setTime((prevTime) => prevTime - 1);
       }, 1000);
     } else if (time === 0) {
+      new Audio(NotificationAudio).play().then(() => {});
       nextStep();
       setIsActive(false);
     }
