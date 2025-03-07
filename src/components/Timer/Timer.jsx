@@ -106,7 +106,13 @@ function Timer() {
               <Pause />
               Pausar
             </button>
-            <button className="btn btn-primary" onClick={resetTimer}>
+            <button
+              className="btn btn-primary"
+              onClick={resetTimer}
+              disabled={
+                !(isActive || pomodoroSettings.time[currentStep] * 60 !== time)
+              }
+            >
               <RotateCcw />
               Reiniciar
             </button>
