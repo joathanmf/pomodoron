@@ -1,4 +1,4 @@
-import { Settings } from "lucide-react";
+import { Settings2 } from "lucide-react";
 
 function OpenModalButton() {
   return (
@@ -6,7 +6,7 @@ function OpenModalButton() {
       className="btn btn-link absolute top-0 right-0"
       onClick={() => document.getElementById("settings_modal").showModal()}
     >
-      <Settings />
+      <Settings2 />
     </button>
   );
 }

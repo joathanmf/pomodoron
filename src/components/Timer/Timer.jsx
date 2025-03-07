@@ -72,11 +72,11 @@ function Timer() {
 
   return (
     <div className="flex flex-col">
-      <div className="text-center space-x-2">
+      <div className="flex justify-center space-x-3">
         {Object.keys(Step).map((key) => (
           <button
             key={key}
-            className={`p-2 rounded-t-lg cursor-pointer hover:bg-base-300 w-38 ${
+            className={`p-2 rounded-t-lg cursor-pointer hover:bg-base-300 w-22 md:w-38 text-sm md:text-lg ${
               currentStep === key ? "bg-base-300" : "bg-base-200"
             }`}
             onClick={() => changeStep(key)}
@@ -85,7 +85,7 @@ function Timer() {
           </button>
         ))}
       </div>
-      <div className="card w-128 bg-base-300 card-xl">
+      <div className="card w-80 md:w-135 bg-base-300 card-xl">
         <div className="card-body space-y-10">
           <h1 className="text-center text-3xl font-medium">
             {Step[currentStep]}

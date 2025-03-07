@@ -44,8 +44,8 @@ function SettingsModal() {
         />
         <div className="space-y-2">
           <Title>Defina o tempo (minutos)</Title>
-          <div className="flex flex-row justify-around">
-            <label className="flex flex-col w-34">
+          <div className="flex flex-row justify-around items-end text-center">
+            <label className="flex flex-col w-19 md:w-34 text-sm md:text-lg">
               Pomodoro
               <input
                 className="p-2 rounded-lg bg-base-200 input"
@@ -58,7 +58,7 @@ function SettingsModal() {
                 }}
               />
             </label>
-            <label className="flex flex-col w-34">
+            <label className="flex flex-col w-19 md:w-34 text-sm md:text-lg">
               Parada Curta
               <input
                 className="p-2 rounded-lg bg-base-200 input"
@@ -71,7 +71,7 @@ function SettingsModal() {
                 }}
               />
             </label>
-            <label className="flex flex-col w-34">
+            <label className="flex flex-col w-19 md:w-34 text-sm md:text-lg">
               Parada Longa
               <input
                 className="p-2 rounded-lg bg-base-200 input"

@@ -5,7 +5,7 @@ function FieldsetThemes({ currentTheme, setCurrentTheme }) {
   return (
     <div className="space-y-1">
       <Title>Altere o tema</Title>
-      <fieldset className="fieldset flex flex-row justify-around">
+      <fieldset className="fieldset flex flex-row justify-around flex-wrap">
         <InputRadioTheme
           value="lofi"
           currentTheme={currentTheme}
