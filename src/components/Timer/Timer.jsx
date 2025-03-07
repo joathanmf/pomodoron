@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
+import * as storage from "../../utils/settings.js";
 
-function Timer({ initialSettings }) {
-  const [time, setTime] = useState(initialSettings.time.pomodoro * 60);
+function Timer() {
+  const pomodoroSettings = storage.loadSettings();
+
+  const [time, setTime] = useState(pomodoroSettings.time.pomodoro * 60);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -30,7 +33,7 @@ function Timer({ initialSettings }) {
 
   function resetTimer() {
     setIsActive(false);
-    setTime(initialSettings.time.pomodoro * 60);
+    setTime(pomodoroSettings.time.pomodoro * 60);
   }
 
   function formatTime(seconds) {
@@ -46,7 +49,7 @@ function Timer({ initialSettings }) {
         <h2 className="text-center text-5xl font-bold">{formatTime(time)}</h2>
         <div className="card-actions justify-center">
           <button
-            className="btn btn-secondary"
+            className="btn btn-success"
             onClick={startTimer}
             disabled={isActive}
           >
