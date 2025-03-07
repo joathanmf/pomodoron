@@ -1,9 +1,9 @@
 const initialSettings = {
   theme: "lofi",
   time: {
-    pomodoro: 25,
-    shortBreak: 5,
-    longBreak: 15,
+    pomodoro: 0.1,
+    shortBreak: 0.1,
+    longBreak: 0.1,
   },
 };
 
