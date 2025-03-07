@@ -4,7 +4,7 @@ function InputRadioTheme({ value, children, currentTheme, setCurrentTheme }) {
       <input
         type="radio"
         name="theme-radios"
-        className="radio radio-sm theme-controller input-primary"
+        className="radio radio-sm theme-controller"
         value={value}
         checked={currentTheme === value}
         onChange={() => setCurrentTheme(value)}

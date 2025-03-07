@@ -1,8 +1,32 @@
 import { X } from "lucide-react";
 import FieldsetThemes from "../Theme/FieldsetThemes.jsx";
 import Title from "../Title/Title.jsx";
+import { useEffect, useState } from "react";
+import { useSettings } from "../../contexts/SettingsContext.jsx";
 
-function SettingsModal({ currentTheme, setCurrentTheme }) {
+function SettingsModal() {
+  const { settings, updateSettings } = useSettings();
+
+  const [currentTheme, setCurrentTheme] = useState(settings.theme);
+  const [pomodoroTime, setPomodoroTime] = useState(settings.time.pomodoro);
+  const [shortBreakTime, setShortBreakTime] = useState(
+    settings.time.shortBreak,
+  );
+  const [longBreakTime, setLongBreakTime] = useState(settings.time.longBreak);
+
+  useEffect(() => {
+    const updatedSettings = {
+      theme: currentTheme,
+      time: {
+        pomodoro: pomodoroTime,
+        shortBreak: shortBreakTime,
+        longBreak: longBreakTime,
+      },
+    };
+
+    updateSettings(updatedSettings);
+  }, [currentTheme, pomodoroTime, shortBreakTime, longBreakTime]);
+
   return (
     <dialog id="settings_modal" className="modal">
       <div className="modal-box space-y-8 max-w-lg">
@@ -24,25 +48,40 @@ function SettingsModal({ currentTheme, setCurrentTheme }) {
             <label className="flex flex-col w-34">
               Pomodoro
               <input
+                className="p-2 rounded-lg bg-base-200 input"
                 type="number"
                 min="1"
-                className="p-2 rounded-lg bg-base-200 input input-primary"
-              />
-            </label>
-            <label className="flex flex-col w-34">
-              Parada Longa
-              <input
-                type="number"
-                min="1"
-                className="p-2 rounded-lg bg-base-200 input input-primary"
+                max="60"
+                value={+pomodoroTime}
+                onChange={(e) => {
+                  setPomodoroTime(e.target.value);
+                }}
               />
             </label>
             <label className="flex flex-col w-34">
               Parada Curta
               <input
+                className="p-2 rounded-lg bg-base-200 input"
                 type="number"
                 min="1"
-                className="p-2 rounded-lg bg-base-200 input input-primary"
+                max="60"
+                value={+shortBreakTime}
+                onChange={(e) => {
+                  setShortBreakTime(e.target.value);
+                }}
+              />
+            </label>
+            <label className="flex flex-col w-34">
+              Parada Longa
+              <input
+                className="p-2 rounded-lg bg-base-200 input"
+                type="number"
+                min="1"
+                max="60"
+                value={+longBreakTime}
+                onChange={(e) => {
+                  setLongBreakTime(e.target.value);
+                }}
               />
             </label>
           </div>

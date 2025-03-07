@@ -1,23 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
-import * as storage from "../../utils/settings.js";
+import { useSettings } from "../../contexts/SettingsContext.jsx";
 
 function Timer() {
-  console.log("Renderizou...");
-
   const Step = {
     pomodoro: "Pomodoro",
     shortBreak: "Parada Curta",
     longBreak: "Parada Longa",
   };
 
-  const pomodoroSettings = useMemo(() => storage.loadSettings(), []);
+  const { settings } = useSettings();
   const stepOrder = useMemo(
     () => ["pomodoro", "shortBreak", "pomodoro", "longBreak"],
     [],
   );
 
-  const [time, setTime] = useState(pomodoroSettings.time.pomodoro * 60);
+  const [time, setTime] = useState(settings.time.pomodoro * 60);
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState("pomodoro");
   const intervalRef = useRef(null);
@@ -28,8 +26,8 @@ function Timer() {
     const next = stepOrder[stepIndexRef.current];
 
     setCurrentStep(next);
-    setTime(pomodoroSettings.time[next] * 60);
-  }, [pomodoroSettings.time, stepOrder]);
+    setTime(settings.time[next] * 60);
+  }, [settings.time, stepOrder]);
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -44,22 +42,26 @@ function Timer() {
     return () => clearInterval(intervalRef.current);
   }, [isActive, time, nextStep]);
 
+  useEffect(() => {
+    setTime(settings.time[currentStep] * 60);
+  }, [settings.time, currentStep]);
+
   const changeStep = useCallback(
     (step) => {
       stepIndexRef.current = stepOrder.indexOf(step);
 
       setIsActive(false);
       setCurrentStep(step);
-      setTime(pomodoroSettings.time[step] * 60);
+      setTime(settings.time[step] * 60);
     },
-    [pomodoroSettings.time, stepOrder],
+    [settings.time, stepOrder],
   );
 
   const startTimer = () => setIsActive(true);
   const pauseTimer = () => setIsActive(false);
   const resetTimer = () => {
     setIsActive(false);
-    setTime(pomodoroSettings.time[currentStep] * 60);
+    setTime(settings.time[currentStep] * 60);
   };
 
   const formatTime = (seconds) => {
@@ -74,7 +76,7 @@ function Timer() {
         {Object.keys(Step).map((key) => (
           <button
             key={key}
-            className={`p-2 rounded-t-lg cursor-pointer hover:bg-base-300 ${
+            className={`p-2 rounded-t-lg cursor-pointer hover:bg-base-300 w-38 ${
               currentStep === key ? "bg-base-300" : "bg-base-200"
             }`}
             onClick={() => changeStep(key)}
@@ -109,9 +111,7 @@ function Timer() {
             <button
               className="btn btn-primary"
               onClick={resetTimer}
-              disabled={
-                !(isActive || pomodoroSettings.time[currentStep] * 60 !== time)
-              }
+              disabled={!(isActive || settings.time[currentStep] * 60 !== time)}
             >
               <RotateCcw />
               Reiniciar
